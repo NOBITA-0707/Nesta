@@ -1,0 +1,221 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   NESTA DESIGN SYSTEM — CSS Custom Properties  (Light / Dark)
+   ================================================================ */
+
+/* ---- LIGHT THEME (default :root) ---- */
+:root {
+  /* Backgrounds */
+  --bg-base:    #E9ECF3;
+  --bg-surface: #EFF2F8;
+  --bg-card:    #F7F8FC;
+  --bg-raised:  #FFFFFF;
+  --bg-pressed: #DFE2EB;
+
+  /* Typography */
+  --text-primary:   #1A1C24;
+  --text-secondary: #525A74;
+  --text-muted:     #8594AD;
+
+  /* Borders */
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-medium: rgba(0, 0, 0, 0.10);
+  --border-strong: rgba(0, 0, 0, 0.18);
+
+  /* Neumorphic shadows (light surface ≈ #E9ECF3) */
+  --neu-raise:    8px 8px 20px #C5C9D5, -6px -6px 14px #FFFFFF;
+  --neu-raise-sm: 4px 4px 10px #C5C9D5, -3px -3px 8px #FFFFFF;
+  --neu-press:    inset 4px 4px 10px #C5C9D5, inset -3px -3px 8px #FFFFFF;
+  --neu-press-sm: inset 3px 3px 6px #C5C9D5,  inset -2px -2px 5px #FFFFFF;
+  --neu-yellow:   0 0 20px rgba(250,204,21,0.45), 5px 5px 12px #C5C9D5;
+  --neu-btn-bg:   #E9ECF3;
+
+  /* Glass */
+  --glass-bg:     rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.92);
+  --glass-shadow: 0 8px 32px rgba(100, 110, 140, 0.18),
+                  inset 0 1px 2px rgba(255, 255, 255, 1);
+
+  color-scheme: light;
+}
+
+/* ---- DARK THEME ---- */
+html.dark {
+  --bg-base:    #14161B;
+  --bg-surface: #1B1E26;
+  --bg-card:    #222631;
+  --bg-raised:  #252935;
+  --bg-pressed: #13151a;
+
+  --text-primary:   #F4F5F8;
+  --text-secondary: #A8B2C7;
+  --text-muted:     #7E889E;
+
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-medium: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --neu-raise:    10px 10px 22px rgba(8,9,12,0.75), -8px -8px 20px rgba(255,255,255,0.035);
+  --neu-raise-sm: 5px 5px 12px rgba(8,9,12,0.7),   -4px -4px 10px rgba(255,255,255,0.03);
+  --neu-press:    inset 4px 4px 10px rgba(7,8,11,0.9),  inset -3px -3px 8px rgba(255,255,255,0.035);
+  --neu-press-sm: inset 3px 3px 6px  rgba(7,8,11,0.85), inset -2px -2px 5px rgba(255,255,255,0.04);
+  --neu-yellow:   0 0 20px rgba(250,204,21,0.4), 6px 6px 14px rgba(0,0,0,0.6);
+  --neu-btn-bg:   #20242e;
+
+  --glass-bg:     rgba(30, 34, 44, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 20px 40px -15px rgba(0,0,0,0.5),
+                  inset 0 1px 1px 0 rgba(255,255,255,0.12);
+
+  color-scheme: dark;
+}
+
+/* ================================================================
+   BASE STYLES
+   ================================================================ */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar           { width: 8px; height: 8px; }
+::-webkit-scrollbar-track     { background: var(--bg-base); }
+::-webkit-scrollbar-thumb     {
+  background: var(--bg-card);
+  border-radius: 9999px;
+  border: 2px solid var(--bg-base);
+  transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover { background: #facc15; }
+
+/* ================================================================
+   COMPONENT LAYER — NEUMORPHIC + GLASSMORPHIC UTILITIES
+   ================================================================ */
+
+@layer components {
+
+  /* ── Frosted Glass Card ── */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+  .glass-card-hover {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .glass-card-hover:hover {
+    border-color: rgba(250, 204, 21, 0.35);
+    transform: translateY(-3px);
+  }
+
+  /* ── Neumorphic Raised Surface ── */
+  .neu-surface {
+    background: var(--bg-surface);
+    box-shadow: var(--neu-raise);
+    border: 1px solid var(--border-subtle);
+    transition: background 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  /* ── Neumorphic Inset / Groove ── */
+  .neu-inset {
+    background: var(--bg-pressed);
+    box-shadow: var(--neu-press);
+    border: 1px solid var(--border-subtle);
+    transition: background 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  /* ── Neumorphic Interactive Button ── */
+  .neu-btn {
+    background: var(--neu-btn-bg);
+    box-shadow: var(--neu-raise-sm);
+    border: 1px solid var(--border-medium);
+    transition: all 0.2s ease-in-out;
+  }
+  .neu-btn:hover {
+    border-color: rgba(250, 204, 21, 0.3);
+  }
+  .neu-btn:active {
+    box-shadow: var(--neu-press-sm);
+    transform: scale(0.985);
+  }
+
+  /* ── Yellow Accent Button ── */
+  .neu-yellow-btn {
+    background: #facc15;
+    color: #111317;
+    font-weight: 600;
+    box-shadow: var(--neu-yellow);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .neu-yellow-btn:hover {
+    background: #fde047;
+    box-shadow: 0 0 30px rgba(250,204,21,0.6), 8px 8px 18px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+  }
+  .neu-yellow-btn:active {
+    transform: scale(0.98) translateY(1px);
+  }
+
+  /* ── Glow Dot ── */
+  .neu-dot { box-shadow: 0 0 10px rgba(250, 204, 21, 0.8); }
+}
+
+/* ================================================================
+   SEMANTIC UTILITIES (automatically theme-aware via CSS vars)
+   ================================================================ */
+
+@layer utilities {
+  /* Text */
+  .text-n-primary   { color: var(--text-primary); }
+  .text-n-secondary { color: var(--text-secondary); }
+  .text-n-muted     { color: var(--text-muted); }
+
+  /* Backgrounds */
+  .bg-n-base    { background-color: var(--bg-base); }
+  .bg-n-surface { background-color: var(--bg-surface); }
+  .bg-n-card    { background-color: var(--bg-card); }
+  .bg-n-raised  { background-color: var(--bg-raised); }
+  .bg-n-pressed { background-color: var(--bg-pressed); }
+
+  /* Borders */
+  .border-n-subtle { border-color: var(--border-subtle); }
+  .border-n-medium { border-color: var(--border-medium); }
+  .border-n-strong { border-color: var(--border-strong); }
+}
+
+/* ================================================================
+   ANIMATION KEYFRAMES
+   ================================================================ */
+
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to   { opacity: 1; transform: translate(-50%, 0);    }
+}
+
+.animate-fadeIn  { animation: fadeIn  0.22s ease both; }
+.animate-scaleUp { animation: scaleUp 0.28s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-slideIn { animation: slideIn 0.28s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-fadeUp  { animation: fadeUp  0.35s cubic-bezier(0.16,1,0.3,1) both; }
